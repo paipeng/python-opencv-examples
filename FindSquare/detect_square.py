@@ -8,15 +8,14 @@ this is an example for find square
 # Python 2/3 compatibility
 from __future__ import print_function
 import sys
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    xrange = range
-
 import numpy as np
 import cv2 as cv
 from matplotlib import pyplot as plt
 
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    xrange = range
 
 
 def is_cnt_valid(cnt):
@@ -25,6 +24,7 @@ def is_cnt_valid(cnt):
             return False
         else:
             return True
+
 
 def angle_cos(p0, p1, p2):
     d1, d2 = (p0-p1).astype('float'), (p2-p1).astype('float')
@@ -57,10 +57,9 @@ def sort_cnt(cnt, append):
             t.append([s[0] + append, s[1] + append])
     return t
 
+
 def find_squares(src):
     img = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
-
-
     img = cv.GaussianBlur(img, (15, 15), 0)
     cv.imshow('squares gauss blur', img)
     squares = []
@@ -69,7 +68,6 @@ def find_squares(src):
     retval, bin = cv.threshold(img, mean, 255, cv.THRESH_BINARY)
     cv.imshow('squares bin', bin)
     contours, _hierarchy = cv.findContours(bin, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
-
 
     idx = 0
     append = 15
@@ -108,7 +106,6 @@ def find_squares(src):
                     ch = cv.waitKey()
 
         idx = idx + 1
-
 
     return squares
 
@@ -149,12 +146,7 @@ def main():
     #ch = cv.waitKey()
     ch = cv.waitKey()
 
-
     print('Done')
-
-
-
-
 
 
 if __name__ == '__main__':
